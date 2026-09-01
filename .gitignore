@@ -1,0 +1,12 @@
+# 插件各自的独立 git 仓库（仅为方便在工作区统一编写，不入本仓库）
+ui-cw-*/
+
+# 测试用独立 DSH_HOME（可随时删除的临时环境，见 经验记录/13-开发环境）
+.dsh-test-home/
+
+# 通用
+node_modules/
+*.tgz
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
