@@ -46,6 +46,22 @@ ctx.slots.inject('shell.overlay', () => ctx.slots.register({
   邻居 3px——后挂的 dock 若同 z-index 会盖住它。textviewer 用 z-index 29
   （低 1 级），让兄弟的拖拽条完整可交互；两面板本体不重叠，无视觉影响
 
+## 右 dock 让位底部终端（高度契约）
+
+- 终端面板水平方向延伸到 `right: var(--dsh-fileexplorer-width)`——右 dock
+  （textviewer）若 `top:0; bottom:0` 全高，会**盖住终端区域**，且终端展开时
+  dock 纹丝不动（像不在一个图层）
+- 根修法：终端把高度发布到 **documentElement**（`--dsh-terminal-height`，
+  面板元素上也有但自定义属性只向下继承，兄弟读不到），右 dock 用
+  `bottom: var(--dsh-terminal-height, 0px)` 让位——终端展开/收起时 dock
+  自动升降
+- 几何契约三件套：`--dsh-fileexplorer-width`（右缘 dock）、
+  `--dsh-textviewer-width`（并排 dock）、`--dsh-terminal-height`（底部 dock）
+  全部发布在 documentElement 上，谁都能读
+- 背景分层：右 dock 用 `--dsw-alias-bg-base`（会话区底色）还是
+  `--dsw-specific-sidebar-fill`（侧栏底色）按"它属于哪一层"决定——查看器
+  与会话区同层（bg-base），文件列表与侧栏同层（sidebar-fill）
+
 ## 通用交互模式
 
 - **整条标题栏点击切换**（收起/展开）：pointerdown 记起点，click 时校验
