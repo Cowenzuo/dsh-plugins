@@ -58,6 +58,10 @@ ctx.slots.inject('shell.overlay', () => ctx.slots.register({
 - 几何契约三件套：`--dsh-fileexplorer-width`（右缘 dock）、
   `--dsh-textviewer-width`（并排 dock）、`--dsh-terminal-height`（底部 dock）
   全部发布在 documentElement 上，谁都能读
+- **过度约束盒陷阱（真实回归）**：面板同时设 `top: 0; bottom: var(...);
+  height: 100vh` 时，**height 会赢**，bottom 被静默忽略——变量明明生效了
+  面板却还是全高，照样盖住终端条。让位底部时绝不能写显式 height，
+  靠 top+bottom 定高；rail 的垂直居中靠 flex:1 即可，不需要 100vh
 - 背景分层：右 dock 用 `--dsw-alias-bg-base`（会话区底色）还是
   `--dsw-specific-sidebar-fill`（侧栏底色）按"它属于哪一层"决定——查看器
   与会话区同层（bg-base），文件列表与侧栏同层（sidebar-fill）
