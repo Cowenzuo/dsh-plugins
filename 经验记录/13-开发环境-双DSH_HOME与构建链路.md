@@ -44,3 +44,9 @@ node --import tsx/esm apps/cli/src/bin.ts web --port 3081
   探针（带 cookie 罐，见 04）是可用手段
 - plugin client bundle 走 combo URL（`/plugins/??id/client.js,...&rev=`），
   单文件 404 是正常的；roster 是否含插件查页面 HTML 里的 `??` 串
+- **重启后验证"下发的确实是最新构建"（防假阴性）**：页面 HTML 里抓 combo
+  URL → `Invoke-WebRequest` 取回 bundle 文本 → grep 标记。注意 bundle 是
+  **压缩产物**：注释会被剥离，要查变量名/常量/事件名（如
+  `INITIAL_WIDTH_RATIO = .5`、`dsw-alias-bg-base` 出现次数、`select-file`）
+  ——编译失败（TS1184）时旧 bundle 还在服务端，不验证就会让用户测旧代码，
+  得到"没生效"的假报告

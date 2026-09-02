@@ -45,3 +45,21 @@
   transparent)` 半透明品牌色底（hover 14%）
 - 字体：等宽代码用 `var(--ds-font-family-code)`；动画缓动用
   `var(--ds-ease-in-out)`
+
+## 背景层级陷阱：bg-base vs bg-layer-1（深色才暴露）
+
+- **会话区（聊天正文）背景 = `--dsw-alias-bg-base`**（官方证据：
+  ConversationRoot/AppFrame/DetailsPanel 全用它）；`--dsw-alias-bg-layer-1`
+  是**抬升面**（输入框、弹层、表格等悬浮/控件表面）
+- 关键：design-platform.css 里两主题取值不同——
+  - 浅色：`bg-base = bluish-00`，`bg-layer-1 = bluish-00`（**相同**）
+  - 深色：`bg-base = bluish-950`，`bg-layer-1 = bluish-875`（**差一档**）
+- 后果：查看器内容区原来用 layer-1，浅色下与会话区毫无差别、验证通过；
+  切深色立刻露出"会话旁一条浅色带"。**token 关系必须两主题都核对**，
+  浅色一致不代表语义一致——查 design-platform.css 才是权威
+- 修法："背景要跟会话纸色"时全部 `--dsw-alias-bg-base`，块结构改用
+  `border: 1px solid var(--dsw-alias-border-l2)` 描边（行内 code/围栏
+  pre/表头 th 都是这个套路）——**结构用边框，背景让位给纸色**；浮层
+  （下拉面板/popover）保留 layer-1 与官方一致
+- 附带：Shiki 代码块背景本来就 `transparent !important` 中性化，换底色
+  时零改动自动跟随容器
