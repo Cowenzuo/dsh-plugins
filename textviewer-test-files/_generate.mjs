@@ -54,6 +54,32 @@ T add(T a, T b) {
 \`\`\`js
 console.log('code block')
 \`\`\`
+
+Mermaid 围栏（md 内的 \`\`\`mermaid 代码块渲染为图）：
+
+\`\`\`mermaid
+sequenceDiagram
+  participant U as 用户
+  participant S as 服务
+  U->>S: 发起请求
+  S-->>U: 返回响应
+\`\`\`
+`,
+  },
+  {
+    label: 'Mermaid', extensions: ['mmd'],
+    content: `flowchart TD
+  A[开始] --> B{是否有效?}
+  B -- 是 --> C[处理数据]
+  B -- 否 --> D[记录错误]
+  C --> E[写入结果]
+  D --> E
+  E --> F[结束]
+
+  subgraph S1[校验阶段]
+    A
+    B
+  end
 `,
   },
   {
@@ -371,6 +397,9 @@ await writeFile(join(OUT, 'sample-gbk.txt'), Buffer.concat([
 count += 1
 // 二进制（NUL 嗅探 → 提示不预览）
 await writeFile(join(OUT, 'sample-binary.bin'), Buffer.from([0x50, 0x4b, 0x03, 0x04, 0x00, 0x00, 0x00, 0x00, 0x1a, 0x2b, 0x03, 0x04]))
+count += 1
+// Mermaid 坏语法（渲染错误分支：首行无法识别图类型 → 解析错误箱 + 源码展示）
+await writeFile(join(OUT, 'sample-mermaid-bad.mmd'), 'totallyNotADiagram\n  A --> B\n', 'utf8')
 count += 1
 // 大文件（约 1MB：首块 256KB 后滚动续载到底，覆盖分块拼接路径）
 const line = '这是一行用于分块续载测试的内容，共约 120 字节。'.repeat(6)
