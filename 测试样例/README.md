@@ -50,7 +50,7 @@ textviewer 支持格式（`ui-cw-textviewer/docs/支持格式.md`，以 `EXT_LAN
 | `sample-gbk.txt` | 严格 UTF-8 失败 → GBK 回退 | 状态条显示 `GBK`，中文正常 |
 | `sample-binary.bin` | 首块 NUL 嗅探 | 显示"二进制文件，暂不支持预览" |
 | `sample-big.txt`（1.03MB） | 分块续载 | "已加载部分内容"，滚动到底自动加载完 |
-| `sample-huge.txt`（4.35MB） | 2MB 预览上限 | 加载到 2MB 停止，提示"仅预览前 2MB" |
+| `sample-huge.txt`（4.35MB） | 大文件看全 | 无预览上限，滚动到底完整加载 |
 
 ## 重新生成
 
