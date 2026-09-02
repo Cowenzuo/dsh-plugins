@@ -2,7 +2,7 @@
  * 格式测试样例生成器：为 textviewer 支持的每个格式（docs/支持格式.md 的
  * EXT_LANGS/BASENAME_LANGS 清单）生成一个真实样例文件，外加 4 个特殊夹具
  * （UTF-16LE BOM / GBK / 二进制 / 大文件分块）。运行：
- *   node D:\_dev\dsh-plugins\测试样例\_generate.mjs
+ *   node D:\_dev\dsh-plugins\textviewer-test-files\_generate.mjs
  * 特殊夹具的编码能力（iconv-lite）从 textviewer 插件的依赖解析。
  */
 import { mkdir, writeFile } from 'node:fs/promises'

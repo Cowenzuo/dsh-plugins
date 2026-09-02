@@ -55,7 +55,7 @@ textviewer 支持格式（`ui-cw-textviewer/docs/支持格式.md`，以 `EXT_LAN
 ## 重新生成
 
 ```sh
-node D:\_dev\dsh-plugins\测试样例\_generate.mjs
+node D:\_dev\dsh-plugins\textviewer-test-files\_generate.mjs
 ```
 
 生成器从 textviewer 插件依赖解析 iconv-lite（GBK 编码），新增格式时：
